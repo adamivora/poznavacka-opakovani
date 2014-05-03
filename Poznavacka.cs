@@ -178,7 +178,11 @@ namespace Poznavacka
                 }
             }
 
-            text = Regex.Replace(Regex.Replace(stringBuilder.ToString().Normalize(NormalizationForm.FormC), @"[^a-z ]", ""), @" $", "");
+            text = Regex.Replace(stringBuilder.ToString().Normalize(NormalizationForm.FormC), @"[^a-z ]", "");
+            while(Regex.IsMatch(text, @" $"))
+            {
+                text = Regex.Replace(text, @" $", "");
+            }
             return text;
         }
 
