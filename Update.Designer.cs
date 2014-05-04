@@ -30,12 +30,12 @@
         {
             this.updateButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.updateTextLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // updateButton
             // 
-            this.updateButton.Location = new System.Drawing.Point(12, 35);
+            this.updateButton.Location = new System.Drawing.Point(24, 55);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(75, 23);
             this.updateButton.TabIndex = 0;
@@ -46,7 +46,7 @@
             // closeButton
             // 
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.closeButton.Location = new System.Drawing.Point(93, 35);
+            this.closeButton.Location = new System.Drawing.Point(125, 55);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(75, 23);
             this.closeButton.TabIndex = 1;
@@ -54,23 +54,23 @@
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
-            // label1
+            // updateTextLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(170, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "K dispozici je nová verze aplikace.";
+            this.updateTextLabel.AutoSize = true;
+            this.updateTextLabel.Location = new System.Drawing.Point(12, 9);
+            this.updateTextLabel.Name = "updateTextLabel";
+            this.updateTextLabel.Size = new System.Drawing.Size(203, 13);
+            this.updateTextLabel.TabIndex = 2;
+            this.updateTextLabel.Text = "K dispozici je nová verze aplikace (0.0.0).";
             // 
             // Update
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(183, 72);
+            this.ClientSize = new System.Drawing.Size(224, 112);
             this.ControlBox = false;
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.updateTextLabel);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.updateButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -86,6 +86,6 @@
 
         private System.Windows.Forms.Button updateButton;
         private System.Windows.Forms.Button closeButton;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label updateTextLabel;
     }
 }

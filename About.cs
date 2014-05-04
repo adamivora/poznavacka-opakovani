@@ -8,7 +8,7 @@ namespace Poznavacka
         public About()
         {
             InitializeComponent();
-            label2.Text = String.Format("Verze: {0}", Application.ProductVersion);
+            versionTextLabel.Text = Application.ProductVersion;
         }
 
         private void closeButton_Click(object sender, EventArgs e)

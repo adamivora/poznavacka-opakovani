@@ -44,7 +44,7 @@ namespace Poznavacka
                 }
                 if (isNewVersion)
                 {
-                    Update update = new Update();
+                    Update update = new Update(serverVersion);
                     update.ShowDialog();
                 }
             }

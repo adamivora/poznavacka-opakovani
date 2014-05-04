@@ -34,6 +34,7 @@
             this.picturePanel = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.controlsPanel = new System.Windows.Forms.Panel();
+            this.helpButton = new System.Windows.Forms.Button();
             this.OKButton = new System.Windows.Forms.Button();
             this.inputTextBox = new System.Windows.Forms.TextBox();
             this.stopButton = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.aboutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.helpButton = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.picturePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -89,7 +89,7 @@
             this.picturePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.picturePanel.ColumnCount = 2;
             this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 169F));
+            this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 171F));
             this.picturePanel.Controls.Add(this.pictureBox, 0, 0);
             this.picturePanel.Controls.Add(this.controlsPanel, 1, 0);
             this.picturePanel.Controls.Add(this.panel1, 0, 1);
@@ -98,7 +98,7 @@
             this.picturePanel.Name = "picturePanel";
             this.picturePanel.RowCount = 2;
             this.picturePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.picturePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.picturePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.picturePanel.Size = new System.Drawing.Size(618, 411);
             this.picturePanel.TabIndex = 2;
             // 
@@ -107,7 +107,7 @@
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Location = new System.Drawing.Point(4, 4);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(440, 352);
+            this.pictureBox.Size = new System.Drawing.Size(438, 382);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox.TabIndex = 1;
             this.pictureBox.TabStop = false;
@@ -125,15 +125,27 @@
             this.controlsPanel.Controls.Add(this.label1);
             this.controlsPanel.Controls.Add(this.startButton);
             this.controlsPanel.Controls.Add(this.browseButton);
-            this.controlsPanel.Location = new System.Drawing.Point(451, 4);
+            this.controlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.controlsPanel.Location = new System.Drawing.Point(449, 4);
             this.controlsPanel.Name = "controlsPanel";
-            this.controlsPanel.Size = new System.Drawing.Size(160, 349);
+            this.controlsPanel.Size = new System.Drawing.Size(165, 382);
             this.controlsPanel.TabIndex = 2;
+            // 
+            // helpButton
+            // 
+            this.helpButton.Enabled = false;
+            this.helpButton.Location = new System.Drawing.Point(47, 356);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(31, 23);
+            this.helpButton.TabIndex = 11;
+            this.helpButton.Text = "?";
+            this.helpButton.UseVisualStyleBackColor = true;
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             // OKButton
             // 
             this.OKButton.Enabled = false;
-            this.OKButton.Location = new System.Drawing.Point(116, 279);
+            this.OKButton.Location = new System.Drawing.Point(10, 356);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(31, 23);
             this.OKButton.TabIndex = 10;
@@ -145,9 +157,10 @@
             // 
             this.inputTextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.inputTextBox.Enabled = false;
-            this.inputTextBox.Location = new System.Drawing.Point(10, 281);
+            this.inputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.inputTextBox.Location = new System.Drawing.Point(10, 327);
             this.inputTextBox.Name = "inputTextBox";
-            this.inputTextBox.Size = new System.Drawing.Size(100, 20);
+            this.inputTextBox.Size = new System.Drawing.Size(144, 23);
             this.inputTextBox.TabIndex = 9;
             this.inputTextBox.Enter += new System.EventHandler(this.inputTextBox_Enter);
             this.inputTextBox.Leave += new System.EventHandler(this.inputTextBox_Leave);
@@ -155,7 +168,7 @@
             // stopButton
             // 
             this.stopButton.Enabled = false;
-            this.stopButton.Location = new System.Drawing.Point(80, 98);
+            this.stopButton.Location = new System.Drawing.Point(87, 98);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(67, 23);
             this.stopButton.TabIndex = 8;
@@ -166,11 +179,11 @@
             // nextButton
             // 
             this.nextButton.Enabled = false;
-            this.nextButton.Location = new System.Drawing.Point(8, 307);
+            this.nextButton.Location = new System.Drawing.Point(84, 356);
             this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(86, 23);
+            this.nextButton.Size = new System.Drawing.Size(70, 23);
             this.nextButton.TabIndex = 6;
-            this.nextButton.Text = "Další obrázek";
+            this.nextButton.Text = "Další";
             this.nextButton.UseVisualStyleBackColor = true;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
@@ -180,7 +193,7 @@
             this.hintCheckBox.Checked = true;
             this.hintCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.hintCheckBox.Enabled = false;
-            this.hintCheckBox.Location = new System.Drawing.Point(80, 64);
+            this.hintCheckBox.Location = new System.Drawing.Point(85, 64);
             this.hintCheckBox.Name = "hintCheckBox";
             this.hintCheckBox.Size = new System.Drawing.Size(15, 14);
             this.hintCheckBox.TabIndex = 5;
@@ -189,7 +202,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 64);
+            this.label2.Location = new System.Drawing.Point(7, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 13);
             this.label2.TabIndex = 4;
@@ -201,7 +214,7 @@
             this.trainingCheckBox.Checked = true;
             this.trainingCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trainingCheckBox.Enabled = false;
-            this.trainingCheckBox.Location = new System.Drawing.Point(80, 43);
+            this.trainingCheckBox.Location = new System.Drawing.Point(85, 43);
             this.trainingCheckBox.Name = "trainingCheckBox";
             this.trainingCheckBox.Size = new System.Drawing.Size(15, 14);
             this.trainingCheckBox.TabIndex = 3;
@@ -211,7 +224,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 42);
+            this.label1.Location = new System.Drawing.Point(7, 43);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 2;
@@ -220,7 +233,7 @@
             // startButton
             // 
             this.startButton.Enabled = false;
-            this.startButton.Location = new System.Drawing.Point(8, 98);
+            this.startButton.Location = new System.Drawing.Point(10, 98);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(67, 23);
             this.startButton.TabIndex = 1;
@@ -230,9 +243,9 @@
             // 
             // browseButton
             // 
-            this.browseButton.Location = new System.Drawing.Point(8, 3);
+            this.browseButton.Location = new System.Drawing.Point(10, 5);
             this.browseButton.Name = "browseButton";
-            this.browseButton.Size = new System.Drawing.Size(145, 23);
+            this.browseButton.Size = new System.Drawing.Size(144, 23);
             this.browseButton.TabIndex = 0;
             this.browseButton.Text = "Otevřít složku s obrázky...";
             this.browseButton.UseVisualStyleBackColor = true;
@@ -243,7 +256,7 @@
             this.panel1.AutoSize = true;
             this.panel1.Controls.Add(this.selectedFolder);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(4, 363);
+            this.panel1.Location = new System.Drawing.Point(4, 393);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(163, 13);
             this.panel1.TabIndex = 3;
@@ -284,17 +297,6 @@
             this.aboutToolStripButton.Size = new System.Drawing.Size(76, 22);
             this.aboutToolStripButton.Text = "O programu";
             this.aboutToolStripButton.Click += new System.EventHandler(this.aboutToolStripButton_Click);
-            // 
-            // helpButton
-            // 
-            this.helpButton.Enabled = false;
-            this.helpButton.Location = new System.Drawing.Point(116, 307);
-            this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(31, 23);
-            this.helpButton.TabIndex = 11;
-            this.helpButton.Text = "?";
-            this.helpButton.UseVisualStyleBackColor = true;
-            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             // Poznavacka
             // 
