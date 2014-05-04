@@ -11,9 +11,9 @@ namespace Poznavacka
 {
     public partial class Poznavacka : Form
     {
-        Random random = new Random();
         string[] pictures;
         string currentPicture;
+        int lastIndex;
 
         public Poznavacka()
         {
@@ -148,7 +148,21 @@ namespace Poznavacka
             inputTextBox.Text = null;
             if (pictures.Length > 0)
             {
-                int index = random.Next(0, pictures.Length);
+                int index;
+                if (pictures.Length == 1)
+                {
+                    index = 0;
+                }
+                else
+                {
+                    do
+                    {
+                        index = Guid.NewGuid().GetHashCode() % pictures.Length;
+                        index = index > 0 ? index : -index;
+                    }
+                    while (index == lastIndex);
+                }
+                lastIndex = index;
                 pictureBox.ImageLocation = pictures[index];
                 currentPicture = RemoveDiacriticsAndKeepLettersOnly(pictures[index]);
                 if (trainingCheckBox.Checked)
@@ -218,6 +232,7 @@ namespace Poznavacka
         private void helpButton_Click(object sender, EventArgs e)
         {
             inputTextBox.Text = currentPicture;
+            inputTextBox.Focus();
         }
     }
 }
