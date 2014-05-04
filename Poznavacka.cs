@@ -212,14 +212,26 @@ namespace Poznavacka
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            if (RemoveDiacriticsAndKeepLettersOnly(inputTextBox.Text) == currentPicture)
+            switch(inputTextBox.Text)
             {
-                MessageBox.Show("Správně!");
-                nextPicture();
-            }
-            else
-            {
-                MessageBox.Show("Špatně!");
+                case "?":
+                    helpButton.PerformClick();
+                    OKButton.PerformClick();
+                    break;
+                case "->":
+                    nextButton.PerformClick();
+                    break;
+                default:
+                    if (RemoveDiacriticsAndKeepLettersOnly(inputTextBox.Text) == currentPicture)
+                    {
+                        MessageBox.Show("Správně!");
+                        nextPicture();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Špatně!");
+                    }
+                    break;
             }
         }
 
