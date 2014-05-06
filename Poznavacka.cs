@@ -12,11 +12,7 @@ namespace Poznavacka
 {
     public partial class Poznavacka : Form
     {
-        string[] picturesPaths;
-        string currentPicture;
-        int lastIndex;
-
-        static readonly HashSet<string> validImageExtensions = new HashSet<string>()
+        static readonly HashSet<string> ValidImageExtensions = new HashSet<string>()
         {
             ".bmp",
             ".gif",
@@ -27,6 +23,9 @@ namespace Poznavacka
             ".tif",
             ".tiff"
         };
+        string[] picturePaths;
+        string currentPictureName;
+        int lastPictureIndex;
 
         public Poznavacka()
         {
@@ -35,10 +34,10 @@ namespace Poznavacka
 
         private void Poznavacka_Shown(object sender, EventArgs e)
         {
-            checkForUpdates();
+            CheckForUpdates();
         }
 
-        private void checkForUpdates()
+        private void CheckForUpdates()
         {
             try
             {
@@ -57,46 +56,37 @@ namespace Poznavacka
                     }
                 }
             }
-            catch { }
+            catch
+            {
+            }
         }
 
-        private void trainingCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void ChangeGuessingState(bool state) // 0 = off, 1 = on
         {
+            startButton.Enabled = !state;
+            nextButton.Enabled = state;
+            stopButton.Enabled = state;
+            trainingCheckBox.Enabled = !state;
+
             if (trainingCheckBox.Checked)
             {
                 hintCheckBox.Checked = true;
                 hintCheckBox.Enabled = false;
-            }
-            else
-            {
-                hintCheckBox.Enabled = true;
-            }
-        }
-
-        private void startButton_Click(object sender, EventArgs e)
-        {
-            startButton.Enabled = false;
-            nextButton.Enabled = true;
-            stopButton.Enabled = true;
-            trainingCheckBox.Enabled = false;
-            hintCheckBox.Enabled = false;
-
-            if (trainingCheckBox.Checked)
-            {
                 helpButton.Enabled = false;
                 inputTextBox.Enabled = false;
                 OKButton.Enabled = false;
             }
             else
             {
-                helpButton.Enabled = true;
-                inputTextBox.Enabled = true;
-                OKButton.Enabled = true;
+                hintCheckBox.Enabled = !state;
+                helpButton.Enabled = state;
+                inputTextBox.Enabled = state;
+                OKButton.Enabled = state;
                 if (hintCheckBox.Checked)
                 {
                     inputTextBox.AutoCompleteMode = AutoCompleteMode.Append;
                     var autocomplete = new AutoCompleteStringCollection();
-                    foreach (string p in picturesPaths)
+                    foreach (string p in picturePaths)
                     {
                         autocomplete.Add(RemoveDiacriticsAndKeepLettersOnly(p));
                     }
@@ -106,83 +96,6 @@ namespace Poznavacka
                 {
                     inputTextBox.AutoCompleteMode = AutoCompleteMode.None;
                 }
-            }
-
-            nextPicture();
-        }
-
-        private void stopButton_Click(object sender, EventArgs e)
-        {
-            StopGuessing();
-        }
-
-        private void StopGuessing()
-        {
-            stopButton.Enabled = false;
-            nextButton.Enabled = false;
-            trainingCheckBox.Enabled = true;
-            OKButton.Enabled = false;
-            inputTextBox.Enabled = false;
-            helpButton.Enabled = false;
-            if (trainingCheckBox.Checked)
-            {
-                hintCheckBox.Checked = true;
-                hintCheckBox.Enabled = false;
-            }
-            else
-            {
-                hintCheckBox.Enabled = true;
-            }
-            startButton.Enabled = true;
-        }
-
-        private void browseButton_Click(object sender, EventArgs e)
-        {
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-            {
-                StopGuessing();
-                selectedFolder.Text = folderBrowserDialog.SelectedPath;
-                picturesPaths = Directory.GetFiles(selectedFolder.Text).Where(file => validImageExtensions.Contains(Path.GetExtension(file).ToLower())).ToArray();
-                startButton.Enabled = true;
-            }
-        }
-
-        private void nextButton_Click(object sender, EventArgs e)
-        {
-            nextPicture();
-        }
-
-        private void nextPicture()
-        {
-            inputTextBox.Text = null;
-            if (picturesPaths.Length > 0)
-            {
-                int index;
-                if (picturesPaths.Length == 1)
-                {
-                    index = 0;
-                }
-                else
-                {
-                    do
-                    {
-                        index = Guid.NewGuid().GetHashCode() % picturesPaths.Length;
-                        index = index > 0 ? index : -index;
-                    }
-                    while (index == lastIndex);
-                }
-                lastIndex = index;
-                pictureBox.ImageLocation = picturesPaths[index];
-                currentPicture = RemoveDiacriticsAndKeepLettersOnly(picturesPaths[index]);
-                if (trainingCheckBox.Checked)
-                {
-                    inputTextBox.Text = currentPicture;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Ve složce nejsou žádné obrázky!");
-                StopGuessing();
             }
         }
 
@@ -201,12 +114,77 @@ namespace Poznavacka
                 }
             }
 
-            text = Regex.Replace(stringBuilder.ToString().Normalize(NormalizationForm.FormC), @"[^a-z ]", "");
-            while(Regex.IsMatch(text, @" $"))
+            text = Regex.Replace(stringBuilder.ToString().Normalize(NormalizationForm.FormC), @"[^a-z ]", String.Empty);
+            while (Regex.IsMatch(text, @" $"))
             {
-                text = Regex.Replace(text, @" $", "");
+                text = Regex.Replace(text, @" $", string.Empty);
             }
             return text;
+        }
+
+        private void NextPicture()
+        {
+            inputTextBox.Text = null;
+            if (picturePaths.Length > 0)
+            {
+                int index;
+                if (picturePaths.Length == 1)
+                {
+                    index = 0;
+                }
+                else
+                {
+                    do
+                    {
+                        index = Guid.NewGuid().GetHashCode() % picturePaths.Length;
+                        index = index > 0 ? index : -index;
+                    }
+                    while (index == lastPictureIndex);
+                }
+                lastPictureIndex = index;
+                pictureBox.ImageLocation = picturePaths[index];
+                currentPictureName = RemoveDiacriticsAndKeepLettersOnly(picturePaths[index]);
+                if (trainingCheckBox.Checked)
+                {
+                    inputTextBox.Text = currentPictureName;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ve složce nejsou žádné obrázky!");
+                ChangeGuessingState(false);
+            }
+        }
+
+        private void browseButton_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                ChangeGuessingState(false);
+                selectedFolder.Text = folderBrowserDialog.SelectedPath;
+                picturePaths = Directory.GetFiles(selectedFolder.Text).Where(file => ValidImageExtensions.Contains(Path.GetExtension(file).ToLower())).ToArray();
+                startButton.Enabled = true;
+            }
+        }
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            ChangeGuessingState(true);
+            NextPicture();
+        }
+
+        private void stopButton_Click(object sender, EventArgs e)
+        {
+            ChangeGuessingState(false);
+        }
+
+        private void trainingCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            hintCheckBox.Enabled = !trainingCheckBox.Checked;
+            if (trainingCheckBox.Checked)
+            {
+                hintCheckBox.Checked = true;
+            }
         }
 
         private void inputTextBox_Enter(object sender, EventArgs e)
@@ -221,7 +199,7 @@ namespace Poznavacka
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            switch(inputTextBox.Text)
+            switch (inputTextBox.Text)
             {
                 case "?":
                     helpButton.PerformClick();
@@ -231,10 +209,10 @@ namespace Poznavacka
                     nextButton.PerformClick();
                     break;
                 default:
-                    if (RemoveDiacriticsAndKeepLettersOnly(inputTextBox.Text) == currentPicture)
+                    if (RemoveDiacriticsAndKeepLettersOnly(inputTextBox.Text) == currentPictureName)
                     {
                         MessageBox.Show("Správně!");
-                        nextPicture();
+                        NextPicture();
                     }
                     else
                     {
@@ -244,16 +222,21 @@ namespace Poznavacka
             }
         }
 
-        private void aboutToolStripButton_Click(object sender, EventArgs e)
+        private void nextButton_Click(object sender, EventArgs e)
         {
-            About about = new About();
-            about.ShowDialog();
+            NextPicture();
         }
 
         private void helpButton_Click(object sender, EventArgs e)
         {
-            inputTextBox.Text = currentPicture;
+            inputTextBox.Text = currentPictureName;
             inputTextBox.Focus();
+        }
+
+        private void aboutToolStripButton_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            about.ShowDialog();
         }
     }
 }
