@@ -51,12 +51,18 @@
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.aboutToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.statsGroupBox = new System.Windows.Forms.GroupBox();
+            this.rightAnswersLabel = new System.Windows.Forms.Label();
+            this.wrongAnswersLabel = new System.Windows.Forms.Label();
+            this.rightAnswersCount = new System.Windows.Forms.Label();
+            this.wrongAnswersCount = new System.Windows.Forms.Label();
             this.mainPanel.SuspendLayout();
             this.picturePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.controlsPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.toolStrip.SuspendLayout();
+            this.statsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -89,7 +95,7 @@
             this.picturePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.picturePanel.ColumnCount = 2;
             this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 172F));
+            this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 173F));
             this.picturePanel.Controls.Add(this.pictureBox, 0, 0);
             this.picturePanel.Controls.Add(this.controlsPanel, 1, 0);
             this.picturePanel.Controls.Add(this.panel1, 0, 1);
@@ -107,13 +113,14 @@
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Location = new System.Drawing.Point(4, 4);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(437, 382);
+            this.pictureBox.Size = new System.Drawing.Size(436, 382);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox.TabIndex = 1;
             this.pictureBox.TabStop = false;
             // 
             // controlsPanel
             // 
+            this.controlsPanel.Controls.Add(this.statsGroupBox);
             this.controlsPanel.Controls.Add(this.helpButton);
             this.controlsPanel.Controls.Add(this.OKButton);
             this.controlsPanel.Controls.Add(this.inputTextBox);
@@ -126,9 +133,9 @@
             this.controlsPanel.Controls.Add(this.startButton);
             this.controlsPanel.Controls.Add(this.browseButton);
             this.controlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.controlsPanel.Location = new System.Drawing.Point(448, 4);
+            this.controlsPanel.Location = new System.Drawing.Point(447, 4);
             this.controlsPanel.Name = "controlsPanel";
-            this.controlsPanel.Size = new System.Drawing.Size(166, 382);
+            this.controlsPanel.Size = new System.Drawing.Size(167, 382);
             this.controlsPanel.TabIndex = 2;
             // 
             // helpButton
@@ -298,6 +305,53 @@
             this.aboutToolStripButton.Text = "O programu";
             this.aboutToolStripButton.Click += new System.EventHandler(this.aboutToolStripButton_Click);
             // 
+            // statsGroupBox
+            // 
+            this.statsGroupBox.Controls.Add(this.wrongAnswersCount);
+            this.statsGroupBox.Controls.Add(this.rightAnswersCount);
+            this.statsGroupBox.Controls.Add(this.wrongAnswersLabel);
+            this.statsGroupBox.Controls.Add(this.rightAnswersLabel);
+            this.statsGroupBox.Location = new System.Drawing.Point(10, 127);
+            this.statsGroupBox.Name = "statsGroupBox";
+            this.statsGroupBox.Size = new System.Drawing.Size(144, 71);
+            this.statsGroupBox.TabIndex = 12;
+            this.statsGroupBox.TabStop = false;
+            this.statsGroupBox.Text = "Statistiky";
+            // 
+            // rightAnswersLabel
+            // 
+            this.rightAnswersLabel.AutoSize = true;
+            this.rightAnswersLabel.Location = new System.Drawing.Point(6, 28);
+            this.rightAnswersLabel.Name = "rightAnswersLabel";
+            this.rightAnswersLabel.Size = new System.Drawing.Size(50, 13);
+            this.rightAnswersLabel.TabIndex = 0;
+            this.rightAnswersLabel.Text = "Správně:";
+            // 
+            // wrongAnswersLabel
+            // 
+            this.wrongAnswersLabel.AutoSize = true;
+            this.wrongAnswersLabel.Location = new System.Drawing.Point(6, 45);
+            this.wrongAnswersLabel.Name = "wrongAnswersLabel";
+            this.wrongAnswersLabel.Size = new System.Drawing.Size(44, 13);
+            this.wrongAnswersLabel.TabIndex = 1;
+            this.wrongAnswersLabel.Text = "Špatně:";
+            // 
+            // rightAnswersCount
+            // 
+            this.rightAnswersCount.Location = new System.Drawing.Point(62, 28);
+            this.rightAnswersCount.Name = "rightAnswersCount";
+            this.rightAnswersCount.Size = new System.Drawing.Size(67, 13);
+            this.rightAnswersCount.TabIndex = 2;
+            this.rightAnswersCount.Text = "0";
+            // 
+            // wrongAnswersCount
+            // 
+            this.wrongAnswersCount.Location = new System.Drawing.Point(62, 45);
+            this.wrongAnswersCount.Name = "wrongAnswersCount";
+            this.wrongAnswersCount.Size = new System.Drawing.Size(67, 13);
+            this.wrongAnswersCount.TabIndex = 3;
+            this.wrongAnswersCount.Text = "0";
+            // 
             // Poznavacka
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -321,6 +375,8 @@
             this.panel1.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.statsGroupBox.ResumeLayout(false);
+            this.statsGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -349,5 +405,10 @@
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.TextBox inputTextBox;
         private System.Windows.Forms.Button helpButton;
+        private System.Windows.Forms.GroupBox statsGroupBox;
+        private System.Windows.Forms.Label wrongAnswersCount;
+        private System.Windows.Forms.Label rightAnswersCount;
+        private System.Windows.Forms.Label wrongAnswersLabel;
+        private System.Windows.Forms.Label rightAnswersLabel;
     }
 }

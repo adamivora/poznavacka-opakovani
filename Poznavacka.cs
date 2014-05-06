@@ -27,6 +27,9 @@ namespace Poznavacka
         string currentPictureName;
         int lastPictureIndex;
 
+        int rightAnswers = 0, wrongAnswers = 0;
+        bool answeredOnce = false;
+
         public Poznavacka()
         {
             InitializeComponent();
@@ -63,6 +66,11 @@ namespace Poznavacka
 
         private void ChangeGuessingState(bool state) // 0 = off, 1 = on
         {
+            rightAnswers = 0;
+            wrongAnswers = 0;
+            rightAnswersCount.Text = "0";
+            wrongAnswersCount.Text = "0";
+
             startButton.Enabled = !state;
             nextButton.Enabled = state;
             stopButton.Enabled = state;
@@ -124,6 +132,8 @@ namespace Poznavacka
 
         private void NextPicture()
         {
+            answeredOnce = false;
+
             inputTextBox.Text = null;
             if (picturePaths.Length > 0)
             {
@@ -203,7 +213,8 @@ namespace Poznavacka
             {
                 case "?":
                     helpButton.PerformClick();
-                    OKButton.PerformClick();
+                    MessageBox.Show("Cheatere!");
+                    NextPicture();
                     break;
                 case "->":
                     nextButton.PerformClick();
@@ -211,12 +222,23 @@ namespace Poznavacka
                 default:
                     if (RemoveDiacriticsAndKeepLettersOnly(inputTextBox.Text) == currentPictureName)
                     {
+                        if (!answeredOnce)
+                        {
+                            rightAnswers++;
+                            rightAnswersCount.Text = rightAnswers.ToString();
+                        }
                         MessageBox.Show("Správně!");
                         NextPicture();
                     }
                     else
                     {
+                        if (!answeredOnce)
+                        {
+                            wrongAnswers++;
+                            wrongAnswersCount.Text = wrongAnswers.ToString();
+                        }
                         MessageBox.Show("Špatně!");
+                        answeredOnce = true;
                     }
                     break;
             }
@@ -229,6 +251,7 @@ namespace Poznavacka
 
         private void helpButton_Click(object sender, EventArgs e)
         {
+            answeredOnce = true;
             inputTextBox.Text = currentPictureName;
             inputTextBox.Focus();
         }
