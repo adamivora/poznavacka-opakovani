@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -11,9 +12,21 @@ namespace Poznavacka
 {
     public partial class Poznavacka : Form
     {
-        string[] pictures;
+        string[] picturesPaths;
         string currentPicture;
         int lastIndex;
+
+        static readonly HashSet<string> validImageExtensions = new HashSet<string>()
+        {
+            ".bmp",
+            ".gif",
+            ".jpe",
+            ".jpg",
+            ".jpeg",
+            ".png",
+            ".tif",
+            ".tiff"
+        };
 
         public Poznavacka()
         {
@@ -33,19 +46,15 @@ namespace Poznavacka
                 string serverVersion = wc.DownloadString("http://www.poznavacka.8u.cz/program/CurrentVersion.txt");
                 string[] serverVersionSplit = serverVersion.Split('.');
                 string[] appVersionSplit = Application.ProductVersion.Split('.');
-                bool isNewVersion = false;
+
                 for (int i = 0; i < 3; i++)
                 {
                     if (int.Parse(serverVersionSplit[i]) > int.Parse(appVersionSplit[i]))
                     {
-                        isNewVersion = true;
-                        break;
+                        Update update = new Update(serverVersion);
+                        update.ShowDialog();
+                        return;
                     }
-                }
-                if (isNewVersion)
-                {
-                    Update update = new Update(serverVersion);
-                    update.ShowDialog();
                 }
             }
             catch { }
@@ -87,7 +96,7 @@ namespace Poznavacka
                 {
                     inputTextBox.AutoCompleteMode = AutoCompleteMode.Append;
                     var autocomplete = new AutoCompleteStringCollection();
-                    foreach (string p in pictures)
+                    foreach (string p in picturesPaths)
                     {
                         autocomplete.Add(RemoveDiacriticsAndKeepLettersOnly(p));
                     }
@@ -104,10 +113,10 @@ namespace Poznavacka
 
         private void stopButton_Click(object sender, EventArgs e)
         {
-            stop();
+            StopGuessing();
         }
 
-        private void stop()
+        private void StopGuessing()
         {
             stopButton.Enabled = false;
             nextButton.Enabled = false;
@@ -131,9 +140,9 @@ namespace Poznavacka
         {
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                stop();
+                StopGuessing();
                 selectedFolder.Text = folderBrowserDialog.SelectedPath;
-                pictures = Directory.GetFiles(selectedFolder.Text).Where(file => new string[] {".jpg", ".JPG", ".bmp", ".BMP", ".png", ".PNG", ".gif", ".GIF"}.Contains(Path.GetExtension(file))).ToArray();
+                picturesPaths = Directory.GetFiles(selectedFolder.Text).Where(file => validImageExtensions.Contains(Path.GetExtension(file).ToLower())).ToArray();
                 startButton.Enabled = true;
             }
         }
@@ -146,10 +155,10 @@ namespace Poznavacka
         private void nextPicture()
         {
             inputTextBox.Text = null;
-            if (pictures.Length > 0)
+            if (picturesPaths.Length > 0)
             {
                 int index;
-                if (pictures.Length == 1)
+                if (picturesPaths.Length == 1)
                 {
                     index = 0;
                 }
@@ -157,14 +166,14 @@ namespace Poznavacka
                 {
                     do
                     {
-                        index = Guid.NewGuid().GetHashCode() % pictures.Length;
+                        index = Guid.NewGuid().GetHashCode() % picturesPaths.Length;
                         index = index > 0 ? index : -index;
                     }
                     while (index == lastIndex);
                 }
                 lastIndex = index;
-                pictureBox.ImageLocation = pictures[index];
-                currentPicture = RemoveDiacriticsAndKeepLettersOnly(pictures[index]);
+                pictureBox.ImageLocation = picturesPaths[index];
+                currentPicture = RemoveDiacriticsAndKeepLettersOnly(picturesPaths[index]);
                 if (trainingCheckBox.Checked)
                 {
                     inputTextBox.Text = currentPicture;
@@ -173,7 +182,7 @@ namespace Poznavacka
             else
             {
                 MessageBox.Show("Ve složce nejsou žádné obrázky!");
-                stop();
+                StopGuessing();
             }
         }
 
