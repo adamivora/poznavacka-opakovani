@@ -22,5 +22,53 @@ namespace Poznavacka.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool shuffleEnabled {
+            get {
+                return ((bool)(this["shuffleEnabled"]));
+            }
+            set {
+                this["shuffleEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool allowShortcuts {
+            get {
+                return ((bool)(this["allowShortcuts"]));
+            }
+            set {
+                this["allowShortcuts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool removeDiacritics {
+            get {
+                return ((bool)(this["removeDiacritics"]));
+            }
+            set {
+                this["removeDiacritics"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool showStats {
+            get {
+                return ((bool)(this["showStats"]));
+            }
+            set {
+                this["showStats"] = value;
+            }
+        }
     }
 }

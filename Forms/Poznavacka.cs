@@ -33,6 +33,7 @@ namespace Poznavacka
         public Poznavacka()
         {
             InitializeComponent();
+            ResetForm();
         }
 
         private void Poznavacka_Shown(object sender, EventArgs e)
@@ -51,12 +52,16 @@ namespace Poznavacka
 
                 for (int i = 0; i < 3; i++)
                 {
-                    if (int.Parse(serverVersionSplit[i]) > int.Parse(appVersionSplit[i]))
+                    if (int.Parse(serverVersionSplit[i]) < int.Parse(appVersionSplit[i]))
+                    {
+                        return;
+                    }
+                    else if (int.Parse(serverVersionSplit[i]) > int.Parse(appVersionSplit[i]))
                     {
                         Update update = new Update(serverVersion);
                         update.ShowDialog();
-                        return;
                     }
+
                 }
             }
             catch
@@ -71,7 +76,14 @@ namespace Poznavacka
             rightAnswersCount.Text = "0";
             wrongAnswersCount.Text = "0";
 
-            startButton.Enabled = !state;
+            if (selectedFolder.Text == "<nevybrána>")
+            {
+                startButton.Enabled = false;
+            }
+            else
+            {
+                startButton.Enabled = !state;
+            }
             nextButton.Enabled = state;
             stopButton.Enabled = state;
             trainingCheckBox.Enabled = !state;
@@ -105,36 +117,68 @@ namespace Poznavacka
                     inputTextBox.AutoCompleteMode = AutoCompleteMode.None;
                 }
             }
-        }
 
-        private string RemoveDiacriticsAndKeepLettersOnly(string text)
-        {
-            text = Regex.Replace(Path.GetFileNameWithoutExtension(text), "-", " ").ToLower();
-            var normalizedString = text.Normalize(NormalizationForm.FormD);
-            var stringBuilder = new StringBuilder();
-
-            foreach (var c in normalizedString)
+            if (state == true)
             {
-                UnicodeCategory unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
-                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                if (Properties.Settings.Default.shuffleEnabled)
                 {
-                    stringBuilder.Append(c);
+                    ShufflePictureArray();
                 }
             }
+        }
 
-            text = Regex.Replace(stringBuilder.ToString().Normalize(NormalizationForm.FormC), @"[^a-z ]", String.Empty);
-            while (Regex.IsMatch(text, @" $"))
+        private void ShufflePictureArray()
+        {
+            Random random = new Random();
+            lastPictureIndex = -1;
+            for (int i = picturePaths.Length - 1; i > 0; i--)
             {
-                text = Regex.Replace(text, @" $", string.Empty);
+                int swapIndex = random.Next(i + 1);
+                string temp = picturePaths[i];
+                picturePaths[i] = picturePaths[swapIndex];
+                picturePaths[swapIndex] = temp;
             }
-            return text;
+        }
+
+        private string RemoveDiacriticsAndKeepLettersOnly(string inputText)
+        {
+            inputText = Regex.Replace(Path.GetFileNameWithoutExtension(inputText), "-", " ").ToLower();
+            if (Properties.Settings.Default.removeDiacritics)
+            {
+                var normalizedString = inputText.Normalize(NormalizationForm.FormD);
+                var stringBuilder = new StringBuilder();
+
+                foreach (var c in normalizedString)
+                {
+                    UnicodeCategory unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                    if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                    {
+                        stringBuilder.Append(c);
+                    }
+                }
+                inputText = stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+            }
+
+            string cleanText = String.Empty;
+            foreach (char c in inputText)
+            {
+                if (char.IsLetter(c) || c == ' ')
+                {
+                    cleanText += c;
+                }
+            }
+            while (Regex.IsMatch(cleanText, @" $"))
+            {
+                cleanText = Regex.Replace(cleanText, @" $", String.Empty);
+            }
+            return cleanText;
         }
 
         private void NextPicture()
         {
             answeredOnce = false;
-
             inputTextBox.Text = null;
+
             if (picturePaths.Length > 0)
             {
                 int index;
@@ -144,12 +188,24 @@ namespace Poznavacka
                 }
                 else
                 {
-                    do
+                    if (Properties.Settings.Default.shuffleEnabled)
                     {
-                        index = Guid.NewGuid().GetHashCode() % picturePaths.Length;
-                        index = index > 0 ? index : -index;
+                        if (lastPictureIndex == picturePaths.Length - 1)
+                        {
+                            MessageBox.Show("Seznam obrázků byl vyčerpán. Začíná nové kolo.");
+                            ShufflePictureArray();
+                        }
+                        index = lastPictureIndex + 1;
                     }
-                    while (index == lastPictureIndex);
+                    else
+                    {
+                        do
+                        {
+                            index = Guid.NewGuid().GetHashCode() % picturePaths.Length;
+                            index = index > 0 ? index : -index;
+                        }
+                        while (index == lastPictureIndex);
+                    }
                 }
                 lastPictureIndex = index;
                 pictureBox.ImageLocation = picturePaths[index];
@@ -163,6 +219,15 @@ namespace Poznavacka
             {
                 MessageBox.Show("Ve složce nejsou žádné obrázky!");
                 ChangeGuessingState(false);
+            }
+        }
+
+        public void ResetForm()
+        {
+            ChangeGuessingState(false);
+            if (Properties.Settings.Default.showStats)
+            {
+                statsGroupBox.Visible = true;
             }
         }
 
@@ -209,38 +274,41 @@ namespace Poznavacka
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            switch (inputTextBox.Text)
+            if (Properties.Settings.Default.allowShortcuts)
             {
-                case "?":
+                if (inputTextBox.Text == "?")
+                {
                     helpButton.PerformClick();
                     MessageBox.Show("Cheatere!");
                     NextPicture();
-                    break;
-                case "->":
-                    nextButton.PerformClick();
-                    break;
-                default:
-                    if (RemoveDiacriticsAndKeepLettersOnly(inputTextBox.Text) == currentPictureName)
-                    {
-                        if (!answeredOnce)
-                        {
-                            rightAnswers++;
-                            rightAnswersCount.Text = rightAnswers.ToString();
-                        }
-                        MessageBox.Show("Správně!");
-                        NextPicture();
-                    }
-                    else
-                    {
-                        if (!answeredOnce)
-                        {
-                            wrongAnswers++;
-                            wrongAnswersCount.Text = wrongAnswers.ToString();
-                        }
-                        MessageBox.Show("Špatně!");
-                        answeredOnce = true;
-                    }
-                    break;
+                    return;
+                }
+                else if (inputTextBox.Text == "->" || inputTextBox.Text == "→")
+                {
+                    NextPicture();
+                    return;
+                }
+            }
+
+            if (RemoveDiacriticsAndKeepLettersOnly(inputTextBox.Text) == currentPictureName)
+            {
+                if (!answeredOnce)
+                {
+                    rightAnswers++;
+                    rightAnswersCount.Text = rightAnswers.ToString();
+                }
+                MessageBox.Show("Správně!");
+                NextPicture();
+            }
+            else
+            {
+                if (!answeredOnce)
+                {
+                    wrongAnswers++;
+                    wrongAnswersCount.Text = wrongAnswers.ToString();
+                }
+                MessageBox.Show("Špatně!");
+                answeredOnce = true;
             }
         }
 
@@ -258,8 +326,15 @@ namespace Poznavacka
 
         private void aboutToolStripButton_Click(object sender, EventArgs e)
         {
-            About about = new About();
-            about.ShowDialog();
+            About aboutForm = new About();
+            aboutForm.ShowDialog();
+        }
+
+        private void settingsToolStripButton_Click(object sender, EventArgs e)
+        {
+            Settings settingsForm = new Settings();
+            settingsForm.Owner = this;
+            settingsForm.ShowDialog();
         }
     }
 }

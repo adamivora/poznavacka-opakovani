@@ -20,7 +20,7 @@ namespace Poznavacka
 
         private void closeButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Dispose();
         }
     }
 }
