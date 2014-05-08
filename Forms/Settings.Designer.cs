@@ -30,14 +30,14 @@
         {
             this.shuffleEnabledLabel = new System.Windows.Forms.Label();
             this.programSettingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.showStatsCheckBox = new System.Windows.Forms.CheckBox();
+            this.shuffleEnabledPanel = new System.Windows.Forms.Panel();
+            this.shuffleRadioButton = new System.Windows.Forms.RadioButton();
+            this.randomRadioButton = new System.Windows.Forms.RadioButton();
             this.removeDiacriticsCheckBox = new System.Windows.Forms.CheckBox();
             this.allowShortcutsCheckBox = new System.Windows.Forms.CheckBox();
-            this.randomRadioButton = new System.Windows.Forms.RadioButton();
-            this.shuffleRadioButton = new System.Windows.Forms.RadioButton();
-            this.shuffleEnabledPanel = new System.Windows.Forms.Panel();
             this.OKButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.showStatsCheckBox = new System.Windows.Forms.CheckBox();
             this.defaultSettingsButton = new System.Windows.Forms.Button();
             this.programSettingsGroupBox.SuspendLayout();
             this.shuffleEnabledPanel.SuspendLayout();
@@ -66,36 +66,26 @@
             this.programSettingsGroupBox.TabStop = false;
             this.programSettingsGroupBox.Text = "Nastavení programu";
             // 
-            // removeDiacriticsCheckBox
+            // showStatsCheckBox
             // 
-            this.removeDiacriticsCheckBox.AutoSize = true;
-            this.removeDiacriticsCheckBox.Location = new System.Drawing.Point(9, 39);
-            this.removeDiacriticsCheckBox.Name = "removeDiacriticsCheckBox";
-            this.removeDiacriticsCheckBox.Size = new System.Drawing.Size(147, 17);
-            this.removeDiacriticsCheckBox.TabIndex = 4;
-            this.removeDiacriticsCheckBox.Text = "Povolit klávesové zkratky";
-            this.removeDiacriticsCheckBox.UseVisualStyleBackColor = true;
+            this.showStatsCheckBox.AutoSize = true;
+            this.showStatsCheckBox.Location = new System.Drawing.Point(9, 60);
+            this.showStatsCheckBox.Name = "showStatsCheckBox";
+            this.showStatsCheckBox.Size = new System.Drawing.Size(123, 17);
+            this.showStatsCheckBox.TabIndex = 5;
+            this.showStatsCheckBox.Text = "Zobrazovat statistiky";
+            this.showStatsCheckBox.UseVisualStyleBackColor = true;
             // 
-            // allowShortcutsCheckBox
+            // shuffleEnabledPanel
             // 
-            this.allowShortcutsCheckBox.AutoSize = true;
-            this.allowShortcutsCheckBox.Location = new System.Drawing.Point(9, 19);
-            this.allowShortcutsCheckBox.Name = "allowShortcutsCheckBox";
-            this.allowShortcutsCheckBox.Size = new System.Drawing.Size(113, 17);
-            this.allowShortcutsCheckBox.TabIndex = 3;
-            this.allowShortcutsCheckBox.Text = "Odstranit diakritiku";
-            this.allowShortcutsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // randomRadioButton
-            // 
-            this.randomRadioButton.AutoSize = true;
-            this.randomRadioButton.Location = new System.Drawing.Point(3, 3);
-            this.randomRadioButton.Name = "randomRadioButton";
-            this.randomRadioButton.Size = new System.Drawing.Size(68, 17);
-            this.randomRadioButton.TabIndex = 5;
-            this.randomRadioButton.TabStop = true;
-            this.randomRadioButton.Text = "Náhodný";
-            this.randomRadioButton.UseVisualStyleBackColor = true;
+            this.shuffleEnabledPanel.AutoSize = true;
+            this.shuffleEnabledPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.shuffleEnabledPanel.Controls.Add(this.shuffleRadioButton);
+            this.shuffleEnabledPanel.Controls.Add(this.randomRadioButton);
+            this.shuffleEnabledPanel.Location = new System.Drawing.Point(81, 91);
+            this.shuffleEnabledPanel.Name = "shuffleEnabledPanel";
+            this.shuffleEnabledPanel.Size = new System.Drawing.Size(210, 23);
+            this.shuffleEnabledPanel.TabIndex = 4;
             // 
             // shuffleRadioButton
             // 
@@ -108,16 +98,36 @@
             this.shuffleRadioButton.Text = "Každý obrázek jednou";
             this.shuffleRadioButton.UseVisualStyleBackColor = true;
             // 
-            // shuffleEnabledPanel
+            // randomRadioButton
             // 
-            this.shuffleEnabledPanel.AutoSize = true;
-            this.shuffleEnabledPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.shuffleEnabledPanel.Controls.Add(this.shuffleRadioButton);
-            this.shuffleEnabledPanel.Controls.Add(this.randomRadioButton);
-            this.shuffleEnabledPanel.Location = new System.Drawing.Point(81, 91);
-            this.shuffleEnabledPanel.Name = "shuffleEnabledPanel";
-            this.shuffleEnabledPanel.Size = new System.Drawing.Size(210, 23);
-            this.shuffleEnabledPanel.TabIndex = 4;
+            this.randomRadioButton.AutoSize = true;
+            this.randomRadioButton.Location = new System.Drawing.Point(3, 3);
+            this.randomRadioButton.Name = "randomRadioButton";
+            this.randomRadioButton.Size = new System.Drawing.Size(68, 17);
+            this.randomRadioButton.TabIndex = 5;
+            this.randomRadioButton.TabStop = true;
+            this.randomRadioButton.Text = "Náhodný";
+            this.randomRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // removeDiacriticsCheckBox
+            // 
+            this.removeDiacriticsCheckBox.AutoSize = true;
+            this.removeDiacriticsCheckBox.Location = new System.Drawing.Point(9, 39);
+            this.removeDiacriticsCheckBox.Name = "removeDiacriticsCheckBox";
+            this.removeDiacriticsCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.removeDiacriticsCheckBox.TabIndex = 4;
+            this.removeDiacriticsCheckBox.Text = "Odstranit diakritiku";
+            this.removeDiacriticsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // allowShortcutsCheckBox
+            // 
+            this.allowShortcutsCheckBox.AutoSize = true;
+            this.allowShortcutsCheckBox.Location = new System.Drawing.Point(9, 19);
+            this.allowShortcutsCheckBox.Name = "allowShortcutsCheckBox";
+            this.allowShortcutsCheckBox.Size = new System.Drawing.Size(147, 17);
+            this.allowShortcutsCheckBox.TabIndex = 3;
+            this.allowShortcutsCheckBox.Text = "Povolit klávesové zkratky";
+            this.allowShortcutsCheckBox.UseVisualStyleBackColor = true;
             // 
             // OKButton
             // 
@@ -138,16 +148,6 @@
             this.cancelButton.Text = "Zrušit";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-            // 
-            // showStatsCheckBox
-            // 
-            this.showStatsCheckBox.AutoSize = true;
-            this.showStatsCheckBox.Location = new System.Drawing.Point(9, 60);
-            this.showStatsCheckBox.Name = "showStatsCheckBox";
-            this.showStatsCheckBox.Size = new System.Drawing.Size(123, 17);
-            this.showStatsCheckBox.TabIndex = 5;
-            this.showStatsCheckBox.Text = "Zobrazovat statistiky";
-            this.showStatsCheckBox.UseVisualStyleBackColor = true;
             // 
             // defaultSettingsButton
             // 
