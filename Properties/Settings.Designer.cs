@@ -82,5 +82,17 @@ namespace Poznavacka.Properties {
                 this["checkSubfolders"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool checkForUpdatesOnStartup {
+            get {
+                return ((bool)(this["checkForUpdatesOnStartup"]));
+            }
+            set {
+                this["checkForUpdatesOnStartup"] = value;
+            }
+        }
     }
 }

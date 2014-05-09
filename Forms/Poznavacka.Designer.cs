@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Poznavacka));
-            this.button1 = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.TableLayoutPanel();
             this.picturePanel = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
@@ -48,31 +47,23 @@
             this.trainingCheckBox = new System.Windows.Forms.CheckBox();
             this.startButton = new System.Windows.Forms.Button();
             this.browseButton = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.selectedFolderPanel = new System.Windows.Forms.Panel();
             this.selectedFolderText = new System.Windows.Forms.Label();
             this.selectedFolderLabel = new System.Windows.Forms.Label();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.settingsToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.aboutToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.helpToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.mainPanel.SuspendLayout();
             this.picturePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.controlsPanel.SuspendLayout();
             this.statsGroupBox.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.selectedFolderPanel.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.Location = new System.Drawing.Point(5, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // mainPanel
             // 
@@ -94,10 +85,10 @@
             this.picturePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.picturePanel.ColumnCount = 2;
             this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 176F));
+            this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
             this.picturePanel.Controls.Add(this.pictureBox, 0, 0);
             this.picturePanel.Controls.Add(this.controlsPanel, 1, 0);
-            this.picturePanel.Controls.Add(this.panel1, 0, 1);
+            this.picturePanel.Controls.Add(this.selectedFolderPanel, 0, 1);
             this.picturePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picturePanel.Location = new System.Drawing.Point(3, 28);
             this.picturePanel.Name = "picturePanel";
@@ -112,7 +103,7 @@
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Location = new System.Drawing.Point(4, 4);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(433, 382);
+            this.pictureBox.Size = new System.Drawing.Size(429, 382);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox.TabIndex = 1;
             this.pictureBox.TabStop = false;
@@ -130,9 +121,9 @@
             this.controlsPanel.Controls.Add(this.startButton);
             this.controlsPanel.Controls.Add(this.browseButton);
             this.controlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.controlsPanel.Location = new System.Drawing.Point(444, 4);
+            this.controlsPanel.Location = new System.Drawing.Point(440, 4);
             this.controlsPanel.Name = "controlsPanel";
-            this.controlsPanel.Size = new System.Drawing.Size(170, 382);
+            this.controlsPanel.Size = new System.Drawing.Size(174, 382);
             this.controlsPanel.TabIndex = 2;
             // 
             // statsGroupBox
@@ -287,15 +278,15 @@
             this.browseButton.UseVisualStyleBackColor = true;
             this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
             // 
-            // panel1
+            // selectedFolderPanel
             // 
-            this.panel1.AutoSize = true;
-            this.panel1.Controls.Add(this.selectedFolderText);
-            this.panel1.Controls.Add(this.selectedFolderLabel);
-            this.panel1.Location = new System.Drawing.Point(4, 393);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(163, 13);
-            this.panel1.TabIndex = 3;
+            this.selectedFolderPanel.AutoSize = true;
+            this.selectedFolderPanel.Controls.Add(this.selectedFolderText);
+            this.selectedFolderPanel.Controls.Add(this.selectedFolderLabel);
+            this.selectedFolderPanel.Location = new System.Drawing.Point(4, 393);
+            this.selectedFolderPanel.Name = "selectedFolderPanel";
+            this.selectedFolderPanel.Size = new System.Drawing.Size(163, 13);
+            this.selectedFolderPanel.TabIndex = 3;
             // 
             // selectedFolderText
             // 
@@ -319,7 +310,7 @@
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripButton,
-            this.aboutToolStripButton});
+            this.helpToolStripDropDownButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(624, 25);
@@ -329,21 +320,36 @@
             // settingsToolStripButton
             // 
             this.settingsToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.settingsToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsToolStripButton.Image")));
             this.settingsToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.settingsToolStripButton.Name = "settingsToolStripButton";
             this.settingsToolStripButton.Size = new System.Drawing.Size(63, 22);
             this.settingsToolStripButton.Text = "Nastavení";
             this.settingsToolStripButton.Click += new System.EventHandler(this.settingsToolStripButton_Click);
             // 
-            // aboutToolStripButton
+            // helpToolStripDropDownButton
             // 
-            this.aboutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.aboutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.aboutToolStripButton.Name = "aboutToolStripButton";
-            this.aboutToolStripButton.Size = new System.Drawing.Size(76, 22);
-            this.aboutToolStripButton.Text = "O programu";
-            this.aboutToolStripButton.Click += new System.EventHandler(this.aboutToolStripButton_Click);
+            this.helpToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.helpToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem,
+            this.checkForUpdatesToolStripMenuItem});
+            this.helpToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.helpToolStripDropDownButton.Name = "helpToolStripDropDownButton";
+            this.helpToolStripDropDownButton.Size = new System.Drawing.Size(58, 22);
+            this.helpToolStripDropDownButton.Text = "Pomoc";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.aboutToolStripMenuItem.Text = "O aplikaci";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // checkForUpdatesToolStripMenuItem
+            // 
+            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.checkForUpdatesToolStripMenuItem.Text = "Zkontrolovat aktualizace";
+            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // Poznavacka
             // 
@@ -366,8 +372,8 @@
             this.controlsPanel.PerformLayout();
             this.statsGroupBox.ResumeLayout(false);
             this.statsGroupBox.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.selectedFolderPanel.ResumeLayout(false);
+            this.selectedFolderPanel.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -376,20 +382,18 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TableLayoutPanel mainPanel;
         private System.Windows.Forms.TableLayoutPanel picturePanel;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.Panel controlsPanel;
-        private System.Windows.Forms.ToolStripButton aboutToolStripButton;
         private System.Windows.Forms.Button nextButton;
         private System.Windows.Forms.CheckBox hintCheckBox;
         private System.Windows.Forms.CheckBox trainingCheckBox;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.Button stopButton;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel selectedFolderPanel;
         private System.Windows.Forms.Label selectedFolderText;
         private System.Windows.Forms.Label selectedFolderLabel;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
@@ -402,5 +406,8 @@
         private System.Windows.Forms.Label wrongAnswersLabel;
         private System.Windows.Forms.Label rightAnswersLabel;
         private System.Windows.Forms.ToolStripButton settingsToolStripButton;
+        private System.Windows.Forms.ToolStripDropDownButton helpToolStripDropDownButton;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
     }
 }

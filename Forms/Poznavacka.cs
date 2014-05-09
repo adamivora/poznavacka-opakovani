@@ -38,34 +38,55 @@ namespace Poznavacka
 
         private void Poznavacka_Shown(object sender, EventArgs e)
         {
-            CheckForUpdates();
+            if (Properties.Settings.Default.checkForUpdatesOnStartup)
+            {
+                CheckForUpdates(true);
+            }
         }
 
-        private void CheckForUpdates()
+        private void CheckForUpdates(bool silentCheck)
         {
             try
             {
                 WebClient wc = new WebClient();
                 string serverVersion = wc.DownloadString("http://www.poznavacka.8u.cz/program/CurrentVersion.txt");
                 string[] serverVersionSplit = serverVersion.Split('.');
-                string[] appVersionSplit = Application.ProductVersion.Split('.');
+                string appVersion = Application.ProductVersion;
+                string[] appVersionSplit = appVersion.Split('.');
 
-                for (int i = 0; i < 3; i++)
+                if (serverVersion == appVersion)
+                {
+                    if (!silentCheck)
+                    {
+                        MessageBox.Show("Současná verze aplikace je aktuální.", "Aktualizace");
+                    }
+                    return;
+                }
+
+                for (int i = 0; i < serverVersionSplit.Length; i++)
                 {
                     if (int.Parse(serverVersionSplit[i]) < int.Parse(appVersionSplit[i]))
                     {
+                        if (!silentCheck)
+                        {
+                            MessageBox.Show("Současná verze aplikace je aktuální.", "Aktualizace");
+                        }
                         return;
                     }
                     else if (int.Parse(serverVersionSplit[i]) > int.Parse(appVersionSplit[i]))
                     {
-                        Update update = new Update(serverVersion);
+                        Update update = new Update(serverVersion, silentCheck);
                         update.ShowDialog();
+                        return;
                     }
-
                 }
             }
-            catch
+            catch (WebException)
             {
+                if (!silentCheck)
+                {
+                    MessageBox.Show("Vyskytla se chyba při kontrole aktuální verze programu.", "Chyba");
+                }
             }
         }
 
@@ -195,7 +216,7 @@ namespace Poznavacka
                     {
                         if (lastPictureIndex == picturePaths.Length - 1)
                         {
-                            MessageBox.Show("Seznam obrázků byl vyčerpán. Začíná nové kolo.");
+                            MessageBox.Show("Seznam obrázků byl vyčerpán. Začíná nové kolo.", "Konec seznamu obrázků");
                             ShufflePictureArray();
                         }
                         index = lastPictureIndex + 1;
@@ -220,7 +241,7 @@ namespace Poznavacka
             }
             else
             {
-                MessageBox.Show("Ve složce nejsou žádné obrázky!");
+                MessageBox.Show("Ve složce nejsou žádné obrázky!", "Chyba");
                 ChangeGuessingState(false);
             }
         }
@@ -288,6 +309,8 @@ namespace Poznavacka
                 if (inputTextBox.Text == "?")
                 {
                     helpButton.PerformClick();
+                    wrongAnswers++;
+                    wrongAnswersCount.Text = wrongAnswers.ToString();
                     MessageBox.Show("Cheatere!");
                     NextPicture();
                     return;
@@ -333,17 +356,22 @@ namespace Poznavacka
             inputTextBox.Focus();
         }
 
-        private void aboutToolStripButton_Click(object sender, EventArgs e)
-        {
-            About aboutForm = new About();
-            aboutForm.ShowDialog();
-        }
-
         private void settingsToolStripButton_Click(object sender, EventArgs e)
         {
             Settings settingsForm = new Settings();
             settingsForm.Owner = this;
             settingsForm.ShowDialog();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About aboutForm = new About();
+            aboutForm.ShowDialog();
+        }
+
+        private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CheckForUpdates(false);
         }
     }
 }
