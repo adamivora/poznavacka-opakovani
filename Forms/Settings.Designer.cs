@@ -39,6 +39,7 @@
             this.OKButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.defaultSettingsButton = new System.Windows.Forms.Button();
+            this.browseSubfoldersCheckBox = new System.Windows.Forms.CheckBox();
             this.programSettingsGroupBox.SuspendLayout();
             this.shuffleEnabledPanel.SuspendLayout();
             this.SuspendLayout();
@@ -46,7 +47,7 @@
             // shuffleEnabledLabel
             // 
             this.shuffleEnabledLabel.AutoSize = true;
-            this.shuffleEnabledLabel.Location = new System.Drawing.Point(6, 96);
+            this.shuffleEnabledLabel.Location = new System.Drawing.Point(6, 114);
             this.shuffleEnabledLabel.Name = "shuffleEnabledLabel";
             this.shuffleEnabledLabel.Size = new System.Drawing.Size(76, 13);
             this.shuffleEnabledLabel.TabIndex = 2;
@@ -54,6 +55,7 @@
             // 
             // programSettingsGroupBox
             // 
+            this.programSettingsGroupBox.Controls.Add(this.browseSubfoldersCheckBox);
             this.programSettingsGroupBox.Controls.Add(this.showStatsCheckBox);
             this.programSettingsGroupBox.Controls.Add(this.shuffleEnabledPanel);
             this.programSettingsGroupBox.Controls.Add(this.removeDiacriticsCheckBox);
@@ -69,7 +71,7 @@
             // showStatsCheckBox
             // 
             this.showStatsCheckBox.AutoSize = true;
-            this.showStatsCheckBox.Location = new System.Drawing.Point(9, 60);
+            this.showStatsCheckBox.Location = new System.Drawing.Point(9, 59);
             this.showStatsCheckBox.Name = "showStatsCheckBox";
             this.showStatsCheckBox.Size = new System.Drawing.Size(123, 17);
             this.showStatsCheckBox.TabIndex = 5;
@@ -82,7 +84,7 @@
             this.shuffleEnabledPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.shuffleEnabledPanel.Controls.Add(this.shuffleRadioButton);
             this.shuffleEnabledPanel.Controls.Add(this.randomRadioButton);
-            this.shuffleEnabledPanel.Location = new System.Drawing.Point(81, 91);
+            this.shuffleEnabledPanel.Location = new System.Drawing.Point(82, 109);
             this.shuffleEnabledPanel.Name = "shuffleEnabledPanel";
             this.shuffleEnabledPanel.Size = new System.Drawing.Size(210, 23);
             this.shuffleEnabledPanel.TabIndex = 4;
@@ -159,6 +161,16 @@
             this.defaultSettingsButton.UseVisualStyleBackColor = true;
             this.defaultSettingsButton.Click += new System.EventHandler(this.defaultSettingsButton_Click);
             // 
+            // browseSubfoldersCheckBox
+            // 
+            this.browseSubfoldersCheckBox.AutoSize = true;
+            this.browseSubfoldersCheckBox.Location = new System.Drawing.Point(9, 79);
+            this.browseSubfoldersCheckBox.Name = "browseSubfoldersCheckBox";
+            this.browseSubfoldersCheckBox.Size = new System.Drawing.Size(124, 17);
+            this.browseSubfoldersCheckBox.TabIndex = 6;
+            this.browseSubfoldersCheckBox.Text = "Procházet podsložky";
+            this.browseSubfoldersCheckBox.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -194,6 +206,7 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.CheckBox showStatsCheckBox;
         private System.Windows.Forms.Button defaultSettingsButton;
+        private System.Windows.Forms.CheckBox browseSubfoldersCheckBox;
 
 
     }

@@ -70,5 +70,17 @@ namespace Poznavacka.Properties {
                 this["showStats"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool checkSubfolders {
+            get {
+                return ((bool)(this["checkSubfolders"]));
+            }
+            set {
+                this["checkSubfolders"] = value;
+            }
+        }
     }
 }

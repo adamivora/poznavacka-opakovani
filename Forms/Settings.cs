@@ -23,6 +23,7 @@ namespace Poznavacka
             allowShortcutsCheckBox.Checked = Properties.Settings.Default.allowShortcuts;
             removeDiacriticsCheckBox.Checked = Properties.Settings.Default.removeDiacritics;
             showStatsCheckBox.Checked = Properties.Settings.Default.showStats;
+            browseSubfoldersCheckBox.Checked = Properties.Settings.Default.checkSubfolders;
             randomRadioButton.Checked = !Properties.Settings.Default.shuffleEnabled;
             shuffleRadioButton.Checked = Properties.Settings.Default.shuffleEnabled;
         }
@@ -32,6 +33,7 @@ namespace Poznavacka
             Properties.Settings.Default.allowShortcuts = allowShortcutsCheckBox.Checked;
             Properties.Settings.Default.removeDiacritics = removeDiacriticsCheckBox.Checked;
             Properties.Settings.Default.showStats = showStatsCheckBox.Checked;
+            Properties.Settings.Default.checkSubfolders = browseSubfoldersCheckBox.Checked;
             Properties.Settings.Default.shuffleEnabled = shuffleRadioButton.Checked;
             Properties.Settings.Default.Save();
             Poznavacka poznavacka = (Poznavacka)Owner;
@@ -49,6 +51,7 @@ namespace Poznavacka
             Properties.Settings.Default.allowShortcuts = true;
             Properties.Settings.Default.removeDiacritics = true;
             Properties.Settings.Default.showStats = true;
+            Properties.Settings.Default.checkSubfolders = true;
             Properties.Settings.Default.shuffleEnabled = true;
             SetControlsState();
         }

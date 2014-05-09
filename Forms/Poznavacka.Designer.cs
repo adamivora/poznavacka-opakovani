@@ -49,8 +49,8 @@
             this.startButton = new System.Windows.Forms.Button();
             this.browseButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.selectedFolder = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.selectedFolderText = new System.Windows.Forms.Label();
+            this.selectedFolderLabel = new System.Windows.Forms.Label();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.settingsToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.aboutToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -94,7 +94,7 @@
             this.picturePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.picturePanel.ColumnCount = 2;
             this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
+            this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 176F));
             this.picturePanel.Controls.Add(this.pictureBox, 0, 0);
             this.picturePanel.Controls.Add(this.controlsPanel, 1, 0);
             this.picturePanel.Controls.Add(this.panel1, 0, 1);
@@ -112,7 +112,7 @@
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Location = new System.Drawing.Point(4, 4);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(434, 382);
+            this.pictureBox.Size = new System.Drawing.Size(433, 382);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox.TabIndex = 1;
             this.pictureBox.TabStop = false;
@@ -130,9 +130,9 @@
             this.controlsPanel.Controls.Add(this.startButton);
             this.controlsPanel.Controls.Add(this.browseButton);
             this.controlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.controlsPanel.Location = new System.Drawing.Point(445, 4);
+            this.controlsPanel.Location = new System.Drawing.Point(444, 4);
             this.controlsPanel.Name = "controlsPanel";
-            this.controlsPanel.Size = new System.Drawing.Size(169, 382);
+            this.controlsPanel.Size = new System.Drawing.Size(170, 382);
             this.controlsPanel.TabIndex = 2;
             // 
             // statsGroupBox
@@ -290,30 +290,30 @@
             // panel1
             // 
             this.panel1.AutoSize = true;
-            this.panel1.Controls.Add(this.selectedFolder);
-            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.selectedFolderText);
+            this.panel1.Controls.Add(this.selectedFolderLabel);
             this.panel1.Location = new System.Drawing.Point(4, 393);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(163, 13);
             this.panel1.TabIndex = 3;
             // 
-            // selectedFolder
+            // selectedFolderText
             // 
-            this.selectedFolder.AutoSize = true;
-            this.selectedFolder.Location = new System.Drawing.Point(91, 0);
-            this.selectedFolder.Name = "selectedFolder";
-            this.selectedFolder.Size = new System.Drawing.Size(69, 13);
-            this.selectedFolder.TabIndex = 1;
-            this.selectedFolder.Text = "<nevybrána>";
+            this.selectedFolderText.AutoSize = true;
+            this.selectedFolderText.Location = new System.Drawing.Point(91, 0);
+            this.selectedFolderText.Name = "selectedFolderText";
+            this.selectedFolderText.Size = new System.Drawing.Size(69, 13);
+            this.selectedFolderText.TabIndex = 1;
+            this.selectedFolderText.Text = "<nevybrána>";
             // 
-            // label3
+            // selectedFolderLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Složka s obrázky:";
+            this.selectedFolderLabel.AutoSize = true;
+            this.selectedFolderLabel.Location = new System.Drawing.Point(4, 0);
+            this.selectedFolderLabel.Name = "selectedFolderLabel";
+            this.selectedFolderLabel.Size = new System.Drawing.Size(90, 13);
+            this.selectedFolderLabel.TabIndex = 0;
+            this.selectedFolderLabel.Text = "Složka s obrázky:";
             // 
             // toolStrip
             // 
@@ -390,8 +390,8 @@
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label selectedFolder;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label selectedFolderText;
+        private System.Windows.Forms.Label selectedFolderLabel;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.TextBox inputTextBox;

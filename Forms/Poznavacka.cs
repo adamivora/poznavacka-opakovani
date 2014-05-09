@@ -76,7 +76,7 @@ namespace Poznavacka
             rightAnswersCount.Text = "0";
             wrongAnswersCount.Text = "0";
 
-            if (selectedFolder.Text == "<nevybrána>")
+            if (selectedFolderText.Text == "<nevybrána>")
             {
                 startButton.Enabled = false;
             }
@@ -131,12 +131,15 @@ namespace Poznavacka
         {
             Random random = new Random();
             lastPictureIndex = -1;
-            for (int i = picturePaths.Length - 1; i > 0; i--)
+            if (picturePaths != null)
             {
-                int swapIndex = random.Next(i + 1);
-                string temp = picturePaths[i];
-                picturePaths[i] = picturePaths[swapIndex];
-                picturePaths[swapIndex] = temp;
+                for (int i = picturePaths.Length - 1; i > 0; i--)
+                {
+                    int swapIndex = random.Next(i + 1);
+                    string temp = picturePaths[i];
+                    picturePaths[i] = picturePaths[swapIndex];
+                    picturePaths[swapIndex] = temp;
+                }
             }
         }
 
@@ -224,6 +227,10 @@ namespace Poznavacka
 
         public void ResetForm()
         {
+            ShufflePictureArray();
+            pictureBox.Image = null;
+            inputTextBox.Text = String.Empty;
+            selectedFolderText.Text = "<nevybrána>";
             ChangeGuessingState(false);
             if (Properties.Settings.Default.showStats)
             {
@@ -236,8 +243,10 @@ namespace Poznavacka
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 ChangeGuessingState(false);
-                selectedFolder.Text = folderBrowserDialog.SelectedPath;
-                picturePaths = Directory.GetFiles(selectedFolder.Text).Where(file => ValidImageExtensions.Contains(Path.GetExtension(file).ToLower())).ToArray();
+                selectedFolderText.Text = folderBrowserDialog.SelectedPath;
+                picturePaths = Directory.GetFiles(folderBrowserDialog.SelectedPath, "*", 
+                    Properties.Settings.Default.checkSubfolders ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)
+                    .Where(file => ValidImageExtensions.Contains(Path.GetExtension(file).ToLower())).ToArray();
                 startButton.Enabled = true;
             }
         }
