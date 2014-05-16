@@ -85,7 +85,7 @@
             this.picturePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.picturePanel.ColumnCount = 2;
             this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.picturePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 181F));
             this.picturePanel.Controls.Add(this.pictureBox, 0, 0);
             this.picturePanel.Controls.Add(this.controlsPanel, 1, 0);
             this.picturePanel.Controls.Add(this.selectedFolderPanel, 0, 1);
@@ -103,7 +103,7 @@
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Location = new System.Drawing.Point(4, 4);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(429, 382);
+            this.pictureBox.Size = new System.Drawing.Size(428, 382);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox.TabIndex = 1;
             this.pictureBox.TabStop = false;
@@ -121,9 +121,9 @@
             this.controlsPanel.Controls.Add(this.startButton);
             this.controlsPanel.Controls.Add(this.browseButton);
             this.controlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.controlsPanel.Location = new System.Drawing.Point(440, 4);
+            this.controlsPanel.Location = new System.Drawing.Point(439, 4);
             this.controlsPanel.Name = "controlsPanel";
-            this.controlsPanel.Size = new System.Drawing.Size(174, 382);
+            this.controlsPanel.Size = new System.Drawing.Size(175, 382);
             this.controlsPanel.TabIndex = 2;
             // 
             // statsGroupBox

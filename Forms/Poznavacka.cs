@@ -97,17 +97,9 @@ namespace Poznavacka
             rightAnswersCount.Text = "0";
             wrongAnswersCount.Text = "0";
 
-            if (selectedFolderText.Text == "<nevybrána>")
-            {
-                startButton.Enabled = false;
-            }
-            else
-            {
-                startButton.Enabled = !state;
-            }
-            nextButton.Enabled = state;
-            stopButton.Enabled = state;
-            trainingCheckBox.Enabled = !state;
+            bool folderSelected = selectedFolderText.Text != "<nevybrána>";
+            startButton.Enabled = trainingCheckBox.Enabled = hintCheckBox.Enabled = folderSelected && !state;
+            nextButton.Enabled = stopButton.Enabled = state;
 
             if (trainingCheckBox.Checked)
             {
@@ -268,7 +260,7 @@ namespace Poznavacka
                 picturePaths = Directory.GetFiles(folderBrowserDialog.SelectedPath, "*", 
                     Properties.Settings.Default.checkSubfolders ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)
                     .Where(file => ValidImageExtensions.Contains(Path.GetExtension(file).ToLower())).ToArray();
-                startButton.Enabled = true;
+                ChangeGuessingState(false);
             }
         }
 
